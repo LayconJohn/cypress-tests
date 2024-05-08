@@ -1,0 +1,32 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - './**.js'
+      - './**.json'
+      - './**.yml'
+    
+jobs:
+  cypress-project:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+      - uses: actions/checkout@v4
+
+    
+      - name: Setup node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.0
+
+      - name: Install dependencies
+      - run: npm install
+      - working-directory: ./
+
+      - name: Run Cypress Tests
+      - run: npm run cypress:headless
+      - working-directory: ./
